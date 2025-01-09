@@ -1,0 +1,32 @@
+{
+    "name": "whatsapp-api-service",
+    "version": "1.0.0",
+    "description": "WhatsApp API Service using Baileys",
+    "main": "dist/app.js",
+    "scripts": {
+      "start": "node dist/app.js",
+      "dev": "nodemon src/app.ts",
+      "build": "tsc",
+      "test": "jest",
+      "swagger-autogen": "node swagger.js"
+    },
+    "dependencies": {
+      "@adiwajshing/baileys": "^5.0.0",
+      "@hapi/boom": "^10.0.1",
+      "express": "^4.18.2",
+      "qrcode-terminal": "^0.12.0",
+      "swagger-ui-express": "^4.6.3",
+      "winston": "^3.9.0"
+    },
+    "devDependencies": {
+      "@types/express": "^4.17.17",
+      "@types/jest": "^29.5.2",
+      "@types/node": "^20.3.1",
+      "@types/swagger-ui-express": "^4.1.3",
+      "jest": "^29.5.0",
+      "nodemon": "^2.0.22",
+      "ts-jest": "^29.1.0",
+      "ts-node": "^10.9.1",
+      "typescript": "^5.1.3"
+    }
+  }
