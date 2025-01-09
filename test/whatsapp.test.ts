@@ -8,7 +8,7 @@ describe('WhatsApp Service', () => {
 
   it('should send a message successfully', async () => {
     const messageData = {
-      to: '1234567890@s.whatsapp.net',
+      to: '5511956773737@s.whatsapp.net',
       message: 'Test message'
     };
 

@@ -1,26 +1,30 @@
-// src/app.ts
 import express from 'express';
-import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from '../swagger.json';
-import whatsappRoutes from './routes/whatsapp.routes';
+import { logger } from './config/whatsapp.config';
 import WhatsAppService from './services/whatsapp.service';
+import whatsappRoutes from './routes/whatsapp.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Rotas do WhatsApp
 app.use('/api/whatsapp', whatsappRoutes);
 
+// Rota de saúde
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Inicializa o serviço do WhatsApp
 WhatsAppService.connect()
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
+    logger.info('Serviço WhatsApp iniciado');
   })
   .catch((error) => {
-    console.error('Failed to start WhatsApp service:', error);
-    process.exit(1);
+    logger.error('Erro ao iniciar serviço WhatsApp:', error);
   });
 
-// tests/whatsapp.test.ts
+app.listen(PORT, () => {
+  logger.info(`Servidor rodando na porta ${PORT}`);
+});

@@ -1,18 +1,12 @@
-// src/config/whatsapp.config.ts
-import { proto } from '@adiwajshing/baileys';
-import winston from 'winston';
+import pino from 'pino';
 
-export const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' })
-  ]
+export const logger = pino({
+  level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+      translateTime: 'SYS:standard'
+    }
+  }
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
-    format: winston.format.simple()
-  }));
-}
