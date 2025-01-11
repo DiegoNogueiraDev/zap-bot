@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_URI: "mongodb://mongo:27017/zap-bot" # Conexão com o MongoDB
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017" # Porta padrão do MongoDB
+    volumes:
+      - mongo_data:/data/db # Persistência de dados
+
+volumes:
+  mongo_data:
